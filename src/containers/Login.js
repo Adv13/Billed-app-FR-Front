@@ -1,15 +1,14 @@
-
 import { ROUTES_PATH } from '../constants/routes.js'
 export let PREVIOUS_LOCATION = ''
 
 // we use a class so as to test its methods in e2e tests
 export default class Login {
-  constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, store }) {
+  constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, firestore }) {
     this.document = document
     this.localStorage = localStorage
     this.onNavigate = onNavigate
     this.PREVIOUS_LOCATION = PREVIOUS_LOCATION
-    this.store = store
+    this.firestore = firestore
     const formEmployee = this.document.querySelector(`form[data-testid="form-employee"]`)
     formEmployee.addEventListener("submit", this.handleSubmitEmployee)
     const formAdmin = this.document.querySelector(`form[data-testid="form-admin"]`)
@@ -25,8 +24,9 @@ export default class Login {
     }
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
+    
       .catch(
-        (err) => this.createUser(user)
+        (err) => this.createUser(user, err)
       )
       .then(() => {
         this.onNavigate(ROUTES_PATH['Bills'])
@@ -41,14 +41,14 @@ export default class Login {
     e.preventDefault()
     const user = {
       type: "Admin",
-      email: e.target.querySelector(`input[data-testid="employee-email-input"]`).value,
-      password: e.target.querySelector(`input[data-testid="employee-password-input"]`).value,
+      email: e.target.querySelector(`input[data-testid="admin-email-input"]`).value,/*ici, la queryselector récupérait la valeur "employee-email-input" pour l'input email au lieu de la valeur "admin-email-input"*/
+      password: e.target.querySelector(`input[data-testid="admin-password-input"]`).value,/*ici, la queryselector récupérait la valeur "employee-password-input" pour l'input password au lieu de la valeur "admin-password-input"*/
       status: "connected"
     }
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
       .catch(
-        (err) => this.createUser(user)
+        (err) => this.createUser(user, err)
       )
       .then(() => {
         this.onNavigate(ROUTES_PATH['Dashboard'])
@@ -59,24 +59,27 @@ export default class Login {
   }
 
   // not need to cover this function by tests
+  // istanbul ignore next
   login = (user) => {
-    if (this.store) {
-      return this.store
+    if (this.firestore) {
+      return this.firestore
       .login(JSON.stringify({
         email: user.email,
         password: user.password,
       })).then(({jwt}) => {
         localStorage.setItem('jwt', jwt)
       })
+      .catch(error => console.error(error))
     } else {
       return null
     }
   }
 
   // not need to cover this function by tests
+  // istanbul ignore next
   createUser = (user) => {
-    if (this.store) {
-      return this.store
+    if (this.firestore) {
+      return this.firestore
       .users()
       .create({data:JSON.stringify({
         type: user.type,
@@ -88,8 +91,9 @@ export default class Login {
         console.log(`User with ${user.email} is created`)
         return this.login(user)
       })
+      .catch(error => console.error(error))
     } else {
       return null
     }
   }
-}
+} 

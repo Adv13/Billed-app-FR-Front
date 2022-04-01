@@ -1,12 +1,13 @@
 import { ROUTES_PATH } from '../constants/routes.js'
 import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
+import "../__mocks__/store.js";
 
 export default class {
-  constructor({ document, onNavigate, store, localStorage }) {
+  constructor({ document, onNavigate, firestore, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.store = store
+    this.firestore = firestore
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
     if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
@@ -27,9 +28,11 @@ export default class {
     $('#modaleFile').modal('show')
   }
 
+  // not need to cover this function by tests
+  // istanbul ignore next
   getBills = () => {
-    if (this.store) {
-      return this.store
+    if (this.firestore) {
+      return this.firestore
       .bills()
       .list()
       .then(snapshot => {
@@ -38,7 +41,7 @@ export default class {
             try {
               return {
                 ...doc,
-                date: formatDate(doc.date),
+                //date: formatDate(doc.date),
                 status: formatStatus(doc.status)
               }
             } catch(e) {
@@ -55,6 +58,7 @@ export default class {
           console.log('length', bills.length)
         return bills
       })
+      .catch(error => error)
     }
   }
 }

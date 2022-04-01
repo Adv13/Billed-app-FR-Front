@@ -1,4 +1,19 @@
-// renvoi un msg d'erreur si le status de la réponse n'est pas ok
+/*class Firestore {
+  constructor() {
+    this.store = window.firebase ? window.firebase.firestore() : () => null
+    this.storage = window.firebase ? window.firebase.storage() : () => null
+  }
+
+  user = uid => this.store.doc(`users/${uid}`)
+  users = () => this.store.collection('users')
+
+  ref = (path) => this.store.doc(path)
+
+  bill = bid => this.store.doc(`bills/${bid}`)
+  bills = () => this.store.collection('bills')
+}*/
+
+
 const jsonOrThrowIfError = async (response) => {
   if(!response.ok) throw new Error((await response.json()).message)
   return response.json()
@@ -25,7 +40,7 @@ class Api {
 const getHeaders = (headers) => {
   const h = { }
   if (!headers.noContentType) h['Content-Type'] = 'application/json'
-  const jwt = localStorage.getItem('jwt')//jsonwebtocken
+  const jwt = localStorage.getItem('jwt')
   if (jwt && !headers.noAuthorization) h['Authorization'] = `Bearer ${jwt}`
   return {...h, ...headers}
 }
@@ -53,8 +68,8 @@ class ApiEntity {
 }
 
 
-// selon la méthode appelée, renvoie vers une méthode de l'apiEntity ou créé une nouvelle instance de cette api
-class Store {
+
+class Firestore {
   constructor() {
     this.api = new Api({baseUrl: 'http://localhost:5678'})
   }
@@ -69,4 +84,4 @@ class Store {
   bills = () => new ApiEntity({key: 'bills', api: this.api})
 }
 
-export default new Store()
+export default new Firestore()
