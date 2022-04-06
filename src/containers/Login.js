@@ -1,6 +1,5 @@
 import { ROUTES_PATH } from '../constants/routes.js'
 export let PREVIOUS_LOCATION = ''
-
 // we use a class so as to test its methods in e2e tests
 export default class Login {
   constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, firestore }) {
@@ -34,9 +33,7 @@ export default class Login {
         PREVIOUS_LOCATION = this.PREVIOUS_LOCATION
         this.document.body.style.backgroundColor="#fff"
       })
-
   }
-
   handleSubmitAdmin = e => {
     e.preventDefault()
     const user = {
@@ -59,7 +56,7 @@ export default class Login {
   }
 
   // not need to cover this function by tests
-  // istanbul ignore next
+  /* istanbul ignore next */
   login = (user) => {
     if (this.firestore) {
       return this.firestore
@@ -76,7 +73,7 @@ export default class Login {
   }
 
   // not need to cover this function by tests
-  // istanbul ignore next
+  /* istanbul ignore next */
   createUser = (user) => {
     if (this.firestore) {
       return this.firestore
@@ -97,3 +94,43 @@ export default class Login {
     }
   }
 } 
+  // not need to cover this function by tests
+ /* checkIfUserExists = (user) => {
+    if (this.firestore) {
+      return this.firestore
+      .users(user.email)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(`User with ${user.email} exists`)
+          return true
+        } else {
+          return false
+        }
+      })
+      .catch(error => error)
+    } else {
+      return null
+    }
+  }
+
+  // not need to cover this function by tests
+  createUser = (user) => {
+    if (this.firestore) {
+      this.firestore
+      .users()
+      .doc(user.email)
+      .set({
+        type: user.type,
+        name: user.email.split('@')[0] 
+      })
+      .then(() => console.log(`User with ${user.email} is created`))
+      .catch(error => error)
+    } else {
+      return null
+    }
+  }*/
+
+//console.log(`User with ${user.email} exists`)
+//.then(() => console.log(`User with ${user.email} is created`))
+//.catch(error => error)

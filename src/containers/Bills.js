@@ -2,7 +2,6 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import { formatDate, formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 import "../__mocks__/store.js";
-
 export default class {
   constructor({ document, onNavigate, firestore, localStorage }) {
     this.document = document
@@ -16,11 +15,9 @@ export default class {
     })
     new Logout({ document, localStorage, onNavigate })
   }
-
   handleClickNewBill = () => {
     this.onNavigate(ROUTES_PATH['NewBill'])
   }
-
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
@@ -29,7 +26,7 @@ export default class {
   }
 
   // not need to cover this function by tests
-  // istanbul ignore next
+  /* istanbul ignore next */
   getBills = () => {
     if (this.firestore) {
       return this.firestore
