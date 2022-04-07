@@ -109,7 +109,7 @@ Puis :
 $jest src/__tests__/your_test_file.js
 ```
 
-OU
+Ou :
 
 ```
 $jest Bills
