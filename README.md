@@ -1,21 +1,36 @@
-## Projet 9 - Billed-app - Openclassrooms
-
-Voici le projet 9 de débuggage/test d'un SASS RH permettant de gérer les factures et remboursements d'employés via le service RH.
-
 ## L'architecture du projet :
 Ce projet, dit frontend, est connecté à un service API backend que vous devez aussi lancer en local.
 
-Le projet backend se trouve ici: https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
+- Le projet backend se trouve ici: https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-back
+- Le projet Frontend se trouve ici : https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front
 
 ## Organiser son espace de travail :
 Pour une bonne organization, vous pouvez créer un dossier bill-app dans lequel vous allez cloner le projet backend et par la suite, le projet frontend:
 
 Clonez le projet backend dans le dossier bill-app :
+```
+$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Back.git
+```
+
+```
+bill-app/
+   - Billed-app-FR-Back
+```
+
+Clonez le projet frontend dans le dossier bill-app :
+```
+$ git clone https://github.com/OpenClassrooms-Student-Center/Billed-app-FR-Front.git
+```
+
+```
+bill-app/
+   - Billed-app-FR-Back
+   - Billed-app-FR-Front
+```
 
 ## Comment lancer l'application en local ?
 
 ### Etape 1 - Lancer le backend :
-
 
 #### Acceder au repertoire du projet :
 ```
@@ -34,7 +49,7 @@ npm install
 npm run run:dev
 ```
 
-#### Accéder à l'API :
+### Accéder à l'API :
 
 L'api est accessible sur le port `5678` en local, c'est à dire `http://localhost:5678`
 
