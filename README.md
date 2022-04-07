@@ -102,7 +102,16 @@ Installez jest-cli :
 
 ```
 $npm i -g jest-cli
+```
+Puis :
+
+```
 $jest src/__tests__/your_test_file.js
+```
+
+OU
+
+```
 $jest Bills
 $jest NewBill
 ```
