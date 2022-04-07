@@ -53,19 +53,6 @@ npm run run:dev
 
 L'api est accessible sur le port `5678` en local, c'est à dire `http://localhost:5678`
 
-## Utilisateurs par défaut:
-
-### administrateur : 
-```
-utilisateur : admin@test.tld 
-mot de passe : admin
-```
-### employé :
-```
-utilisateur : employee@test.tld
-mot de passe : employee
-```
-
 ### Etape 2 - Lancer le frontend :
 
 #### Allez au repo cloné :
@@ -90,6 +77,18 @@ $ live-server
 
 Puis allez à l'adresse : `http://127.0.0.1:8080/`
 
+## Utilisateurs par défaut:
+
+### administrateur : 
+```
+utilisateur : admin@test.tld 
+mot de passe : admin
+```
+### employé :
+```
+utilisateur : employee@test.tld
+mot de passe : employee
+```
 
 ## Comment lancer tous les tests en local avec Jest ?
 
